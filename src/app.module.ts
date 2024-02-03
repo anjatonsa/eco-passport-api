@@ -7,7 +7,7 @@ import { UserModule } from './user/user.module';
 import { SuggestionModule } from './suggestion/suggestion.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27017/'), PassportModule, UserModule, SuggestionModule],
+  imports: [MongooseModule.forRoot('mongodb://localhost:27017/db'), UserModule, PassportModule, SuggestionModule],
   controllers: [AppController],
   providers: [AppService],
 })
