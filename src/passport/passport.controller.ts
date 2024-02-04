@@ -59,7 +59,7 @@ export class PassportController {
         }
     }
 
-    @Get('/email/:email')
+    @Get('/owner/:email')
     getAllFromUser(@Param('email')email: string):Promise<Passport[]> {
         try{
             const passports = this.passportService.getAllFromUser(email);
@@ -69,6 +69,19 @@ export class PassportController {
         {
             console.error('Error fetching all passports from user:', error);
             throw new InternalServerErrorException('Error fetching all passports from user.');
+        }
+    }
+
+    @Get('/search')
+    getByParametars(@Body() params: any):Promise<Passport[]> {
+        try{
+            const passports = this.passportService.searchPassports(params);
+            return passports;
+        }
+        catch(error)
+        {
+            console.error('Error fetching a passport:', error);
+            throw new InternalServerErrorException('Error fetching a passport.');
         }
     }
 

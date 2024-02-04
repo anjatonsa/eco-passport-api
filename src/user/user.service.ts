@@ -36,7 +36,7 @@ export class UserService {
       }
     
 
-     async findByEmail(email: string): Promise<null | Types.ObjectId> {
+    async findByEmail(email: string): Promise<null | Types.ObjectId> {
         const user = await this.userModel.findOne({ email }).exec();
         
         if (!user) {
@@ -44,6 +44,16 @@ export class UserService {
         }
         return user._id; 
     }
+
+    async getByEmail(email: string): Promise<null | User> {
+      const user = await this.userModel.findOne({ email }).exec();
+      
+      if (!user) {
+        throw new UnauthorizedException('User with this email not found.');
+      }
+      return user; 
+  }
+
     async signIn(email: string, password: string): Promise<User | null> {
         const user = await this.userModel.findOne({ email }).exec();
         

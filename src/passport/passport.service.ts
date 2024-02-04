@@ -55,4 +55,23 @@ export class PassportService {
 
         return passports;
       }
+
+      async searchPassports(userSearchParameters: any): Promise<Passport[]> {
+
+        /*userSearchParameters={
+          "citys":"Example City",
+          "buildingCategory":"zgrada"
+        }*/
+        const searchConditions: any = {};
+
+        for (const key in userSearchParameters) {
+          if (userSearchParameters.hasOwnProperty(key)) {
+            searchConditions[key] = userSearchParameters[key];
+          }
+        }
+    
+        const passports = await this.passportModel.find(searchConditions).exec();
+        return passports;
+      }
+    
 }

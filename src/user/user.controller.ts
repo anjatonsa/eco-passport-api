@@ -71,4 +71,17 @@ export class UserController {
         } 
     }
 
+    @Get(':email')
+    getByEmail(@Param('email') email:string):Promise<User> {
+        try{
+            const user = this.userService.getByEmail(email);
+            return user;
+        }
+        catch(error)
+        {
+            console.error('Error fetching an user:', error);
+            throw new InternalServerErrorException('Error fetching an user.');
+        } 
+    }
+
 }
