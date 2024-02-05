@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PassportWithOwner } from 'src/entities/passport-with-owner.dto';
 import { PassportDto } from 'src/entities/passport.dto';
 import { Passport } from 'src/schemas/passport.schema';
 import { UserService } from 'src/user/user.service';
@@ -12,8 +13,8 @@ export class PassportService {
 
     async create(passportDto: PassportDto, email:string): Promise<Passport> {
 
-        const userId = await this.userService.findByEmail(email);
-        const createdPassport = new this.passportModel({...passportDto, owner:userId});
+        const user = await this.userService.getByEmail(email);
+        const createdPassport = new this.passportModel({...passportDto, owner:user._id});
         return createdPassport.save();
       }
     
@@ -45,15 +46,23 @@ export class PassportService {
         return passport;
       }
     
-      async getAllFromUser(email: string): Promise<Passport[]> {
-        const userId = await this.userService.findByEmail(email);
-        if(!userId)
+      async getAllFromUser(email: string): Promise<PassportWithOwner[]> {
+        const user = await this.userService.getByEmail(email);
+        const usersId=user._id;
+        if(!user)
         {
           throw new NotFoundException('User not found')
         }
-        const passports = await this.passportModel.find({ owner:userId }).exec();
-
-        return passports;
+        const passports = await this.passportModel.find({ owner:usersId }).exec();
+        const passportsWithOwner=[];
+        await Promise.all(
+          passports.map(async passport => {
+            const updatedPassport = { ...passport.toObject(), owner: user };
+            passportsWithOwner.push(updatedPassport);
+          })
+        );
+        //console.log("updated passports:" , passportsWithOwner);
+        return passportsWithOwner;
       }
 
       async searchPassports(userSearchParameters: any): Promise<Passport[]> {

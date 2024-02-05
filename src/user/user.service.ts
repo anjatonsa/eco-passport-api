@@ -34,16 +34,6 @@ export class UserService {
         
         return updatedUser;
       }
-    
-
-    async findByEmail(email: string): Promise<null | Types.ObjectId> {
-        const user = await this.userModel.findOne({ email }).exec();
-        
-        if (!user) {
-          throw new UnauthorizedException('User with this email not found.');
-        }
-        return user._id; 
-    }
 
     async getByEmail(email: string): Promise<null | User> {
       const user = await this.userModel.findOne({ email }).exec();
@@ -61,9 +51,6 @@ export class UserService {
           throw new UnauthorizedException('Invalid credentials');
         }
         
-        console.log("user pass ", user.password);
-        console.log("pass ", password);
-
         if (user.password !== password) {
           throw new UnauthorizedException('Invalid credentials');
         }
