@@ -8,9 +8,9 @@ export class PassportController {
     constructor(private passportService:PassportService){}
     
     @Post(':email')
-    create(@Body() passport: PassportDto, @Param('email')email: string ):Promise<Passport> {
+    async create(@Body() passport: PassportDto, @Param('email')email: string ):Promise<Passport> {
         try{
-            const createdPassport = this.passportService.create(passport,email);
+            const createdPassport = await this.passportService.create(passport,email);
             return createdPassport;
         }
         catch(error)
@@ -21,9 +21,9 @@ export class PassportController {
     }
 
     @Put(':id')
-    update(@Param('id')id: string, @Body() passport: PassportDto):Promise<Passport> {
+    async update(@Param('id')id: string, @Body() passport: PassportDto):Promise<Passport> {
         try{
-            const updatedPassport = this.passportService.update(id, passport);
+            const updatedPassport = await this.passportService.update(id, passport);
             return updatedPassport;
         }
         catch(error)
@@ -47,9 +47,9 @@ export class PassportController {
     }
 
     @Get('/id/:id')
-    getById(@Param('id')id: string):Promise<Passport> {
+    async getById(@Param('id')id: string):Promise<Passport> {
         try{
-            const passport = this.passportService.getById(id);
+            const passport = await this.passportService.getById(id);
             return passport;
         }
         catch(error)
@@ -60,9 +60,9 @@ export class PassportController {
     }
 
     @Get('/owner/:email')
-    getAllFromUser(@Param('email')email: string):Promise<Passport[]> {
+    async getAllFromUser(@Param('email')email: string):Promise<Passport[]> {
         try{
-            const passports = this.passportService.getAllFromUser(email);
+            const passports = await this.passportService.getAllFromUser(email);
             return passports;
         }
         catch(error)
@@ -73,9 +73,9 @@ export class PassportController {
     }
 
     @Get('/search')
-    getByParametars(@Body() params: any):Promise<Passport[]> {
+    async getByParametars(@Body() params: any):Promise<Passport[]> {
         try{
-            const passports = this.passportService.searchPassports(params);
+            const passports = await this.passportService.searchPassports(params);
             return passports;
         }
         catch(error)
