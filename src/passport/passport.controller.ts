@@ -1,4 +1,4 @@
-import { Body, Get, Delete, Controller,InternalServerErrorException,Param,Post, Put } from '@nestjs/common';
+import { Body, Get, Delete, Controller,InternalServerErrorException,Param,Post, Put, Query } from '@nestjs/common';
 import { PassportService } from './passport.service';
 import { PassportDto } from 'src/entities/passport.dto';
 import { Passport } from 'src/schemas/passport.schema';
@@ -73,7 +73,7 @@ export class PassportController {
     }
 
     @Get('/search')
-    async getByParametars(@Body() params: any):Promise<Passport[]> {
+    async getByParametars(@Query() params: any):Promise<Passport[]> {
         try{
             const passports = await this.passportService.searchPassports(params);
             return passports;

@@ -66,18 +66,22 @@ export class PassportService {
       }
 
       async searchPassports(userSearchParameters: any): Promise<Passport[]> {
-
-        /*userSearchParameters={
-          "citys":"Example City",
-          "buildingCategory":"zgrada"
-        }*/
+        
         const searchConditions: any = {};
 
+        console.log("user search params", userSearchParameters);
+        
         for (const key in userSearchParameters) {
+          console.log("key",key);
           if (userSearchParameters.hasOwnProperty(key)) {
-            searchConditions[key] = userSearchParameters[key];
+
+            const value=userSearchParameters[key];
+            console.log("value", value);
+            if (value !== '0' && value !== "") 
+            searchConditions[key] = value;
           }
         }
+        console.log("parametri za pretragu",searchConditions);
     
         const passports = await this.passportModel.find(searchConditions).exec();
         return passports;
