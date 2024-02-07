@@ -80,8 +80,20 @@ export class PassportController {
         }
         catch(error)
         {
-            console.error('Error fetching a passport:', error);
-            throw new InternalServerErrorException('Error fetching a passport.');
+            console.error('Error fetching  passports:', error);
+            throw new InternalServerErrorException('Error fetching  passports.');
+        }
+    }
+    @Get('/citystatistic/:city')
+    async getCityStatistic(@Param('city') city: string):Promise<any> {
+        try{
+            const statistic = await this.passportService.getCitySatistic(city);
+            return statistic;
+        }
+        catch(error)
+        {
+            console.error('Error fetching city statistic:', error);
+            throw new InternalServerErrorException('Error fetching city statistic.');
         }
     }
 

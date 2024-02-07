@@ -61,7 +61,6 @@ export class PassportService {
             passportsWithOwner.push(updatedPassport);
           })
         );
-        //console.log("updated passports:" , passportsWithOwner);
         return passportsWithOwner;
       }
 
@@ -85,6 +84,28 @@ export class PassportService {
     
         const passports = await this.passportModel.find(searchConditions).exec();
         return passports;
+      }
+
+
+      async getCitySatistic(city:string):Promise<any>{
+
+        console.log("city", city);
+
+        const aggregateResult = await this.passportModel.aggregate([
+          { $match: { city: city } },
+          {
+            $group: {
+              _id: "$energyClass",
+              averageAnnualHeatingNeed: { $avg: "$annualHeatingNeed" },
+            }
+          },
+
+        ]).exec();
+        
+
+        console.log(aggregateResult);
+
+        return aggregateResult;
       }
     
 }
