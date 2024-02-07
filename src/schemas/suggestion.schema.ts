@@ -7,10 +7,7 @@ export type SuggestionDocument = HydratedDocument<Suggestion>;
 export class Suggestion {
     @Prop({ required: true })
     energyClass: string;
-
-    @Prop({ required: true })
-    annualHeatingNeed: number;
-
+    
     @Prop()
     energySources: string[];    
 
@@ -25,9 +22,6 @@ export class Suggestion {
 
     @Prop()
     coolingType: string;
-
-    @Prop()
-    CO2Emission: number;
 }
 
 export const SuggestionSchema = SchemaFactory.createForClass(Suggestion);

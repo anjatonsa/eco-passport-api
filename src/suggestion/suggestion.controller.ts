@@ -60,10 +60,10 @@ export class SuggestionController {
             throw new InternalServerErrorException('Error fetching a suggestion.');
         }
     }
-    @Get('/energyClass/:energyClass')
-    getByEnergyClass(@Param('energyClass')energyClass: string):Promise<Suggestion> {
+    @Get('/upgrade/:passportId')
+    getForNextEnergyClass(@Param('passportId')passportId: string):Promise<Suggestion> {
         try{
-            const passport = this.suggestionService.getByEnergyClass(energyClass);
+            const passport = this.suggestionService.getForNextEnergyClass(passportId);
             return passport;
         }
         catch(error)

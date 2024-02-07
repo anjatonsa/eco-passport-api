@@ -8,6 +8,7 @@ import { UserModule } from 'src/user/user.module';
 @Module({
   imports: [MongooseModule.forFeature([{ name: Passport.name, schema: PassportSchema }]),UserModule],
   providers: [PassportService],
-  controllers: [PassportController]
+  controllers: [PassportController],
+  exports:[PassportService]
 })
 export class PassportModule {}
