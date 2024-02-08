@@ -82,7 +82,9 @@ export class PassportService {
         }
         console.log("parametri za pretragu",searchConditions);
     
-        const passports = await this.passportModel.find(searchConditions).exec();
+        const passports = await this.passportModel.find(searchConditions).populate('owner').exec();
+        console.log("passports", passports);
+       
         return passports;
       }
 

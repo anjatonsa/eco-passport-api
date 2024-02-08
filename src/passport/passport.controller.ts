@@ -93,7 +93,8 @@ export class PassportController {
         catch(error)
         {
             console.error('Error fetching city statistic:', error);
-            throw new InternalServerErrorException('Error fetching city statistic.');
+            // throw new InternalServerErrorException('Error fetching city statistic.');
+            return [];
         }
     }
 
