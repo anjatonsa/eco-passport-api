@@ -15,4 +15,5 @@ export class PassportDto{
     coolingType: string;
     totalFloors: number;
     CO2Emission: number;
+    isPrivate:boolean;
 }

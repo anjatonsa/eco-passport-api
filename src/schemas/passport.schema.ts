@@ -25,6 +25,9 @@ export class Passport {
     @Prop({ required: true })
     energyClass: string;
 
+    @Prop({ required: true })
+    isPrivate: boolean;
+
     @Prop()
     annualHeatingNeed: number;
 

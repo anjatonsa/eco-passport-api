@@ -17,4 +17,5 @@ export class PassportWithOwner{
     totalFloors: number;
     CO2Emission: number;
     owner:User;
+    isPrivate:boolean;
 }
