@@ -78,6 +78,9 @@ export class PassportService {
             console.log("value", value);
             if (value !== '0' && value !== "") 
             searchConditions[key] = value;
+            
+        
+
           }
         }
         console.log("parametri za pretragu",searchConditions);
